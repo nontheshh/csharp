@@ -1,0 +1,39 @@
+﻿
+@model SomeWebApplication.Models.Book
+
+
+<div class="books-container">
+    <div class="books-container__item-cover">
+        <img src="@Url.Action("GetImage", "Image", new { id = Model.Id })" alt="Alternate Text" />
+    </div>
+    <div class="books-container__item-details">
+        <h2>@Html.ActionLink(Model.Title, "Index", "Book", new { bookId = Model.Id }, new { })</h2>
+        <div class="description">
+            <p>@Model.Annotation</p>
+        </div>
+        <div>
+            <ul class="books-container__item-meta">
+                <li><span>Status:</span><span>@Model.Status</span></li>
+                <li>
+                    <span>Genres:</span>
+                    <span>
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <a href="@Url.Action("Index", "Genre", new { genreId=genre.Id })">@genre.Name, </a>
+                        }
+                    </span>
+                </li>
+                <li>
+                    <span>Author:</span>
+                    <span>
+                        @foreach (var au in Model.ApplicationUsers)
+                        {
+                            <a href="@Url.Action("Index", "Author", new { authorId=au.Id })">@au.UserName, </a>
+                        }
+                    </span>
+                </li>
+                <li><span>Date:</span><span>@Model.TimeStamp.ToShortDateString()</span></li>
+            </ul>
+        </div>
+    </div>
+</div>

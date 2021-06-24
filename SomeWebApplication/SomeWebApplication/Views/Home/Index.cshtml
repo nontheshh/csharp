@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model List<SomeWebApplication.Models.Genre>
+
+<h1>Something</h1>
+@foreach (var g in Model)
+{
+    <ul>
+        <li>@Html.ActionLink(@g.Name, "Index", "Genre", new { genreId = g.Id }, new { })</li>
+    </ul>
+}

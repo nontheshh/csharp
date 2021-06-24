@@ -1,0 +1,16 @@
+﻿
+@model SomeWebApplication.Models.ViewModels.CommentViewModel
+
+@using (Html.BeginForm("LeaveComment", "Book", FormMethod.Post))
+{
+    <div class="form-group">
+        @*@Html.LabelFor(m => m.Text)*@
+        <div class="ccol-md-10">
+            @Html.TextAreaFor(m => m.Text, new { @class = "form-control textarea", placeholder = "Comment" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.BookId)
+
+    <input type="submit" value="Send" />
+}

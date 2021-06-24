@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model SomeWebApplication.Models.SearchBookViewModel
+@using PagedList
+@using PagedList.Mvc
+<style>
+    input {
+        background-color: #1c1c1c;
+    }
+</style>
+<h2>Search</h2>
+<link href="~/Content/Styles/BookItem.css" rel="stylesheet" />
+<link href="~/Content/Styles/Just.css" rel="stylesheet" />
+
+@using (Html.BeginForm("Index", "Search", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.SearchGenreString)
+        <div class="ccol-md-10">
+            @Html.DropDownListFor(
+                x => Model.SearchGenreString,
+                new SelectList(Model.GenreNames),
+                htmlAttributes: new { @class = "form-control", id = "Genre" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.SearchTitleString)
+        <div class="ccol-md-10">
+            @Html.TextBoxFor(m => m.SearchTitleString, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.SearchAuthorString)
+        <div class="ccol-md-10">
+            @Html.TextBoxFor(m => m.SearchAuthorString, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <input type="submit" value="Search" />
+}
+
+<hr />
+
+@if (Model.FoundBooks != null)
+{
+    <ul>
+        @foreach (var book in Model.FoundBooks)
+        {
+            <li>
+                @{Html.RenderPartial("_PartialPageBook", book);}
+            </li>
+        }
+    </ul>
+    <div>Page @(Model.FoundBooks.PageNumber < Model.FoundBooks.PageNumber ? 0 : Model.FoundBooks.PageNumber) Of @Model.FoundBooks.PageCount</div>
+
+    @Html.PagedListPager(Model.FoundBooks, page => Url.Action("Index", new { page, Model.SearchAuthorString, Model.SearchGenreString, Model.SearchTitleString }))
+}

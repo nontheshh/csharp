@@ -1,0 +1,26 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Genre";
+}
+@using PagedList
+@using PagedList.Mvc
+
+@model PagedList<SomeWebApplication.Models.Book>
+
+<h1>@ViewBag.GenreName.ToString()</h1>
+<ul>
+
+    @Html.ActionLink("Back to List", "Index", "Home")
+    @foreach (var book in Model)
+    {
+        <li>
+            @{Html.RenderPartial("_PartialPageBook", book);}
+        </li>
+    }
+</ul>
+
+<div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) Of @Model.PageCount</div>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", "Genre", new { page, genreId = ViewBag.GenreId }))

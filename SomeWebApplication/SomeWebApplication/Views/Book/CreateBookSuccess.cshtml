@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "CreateBookSuccess";
+}
+@model SomeWebApplication.Models.Book
+<h2>CreateBookSuccess</h2>
+<h2>Book is succefully added</h2>
+@Html.ActionLink("Back", "Index", "Home")
+<div>@Model.Id</div>
+<div>@Model.Title</div>
+<div>@Model.Annotation</div>
+<div>@Model.Text</div>
+
+<h2>genres</h2>
+@foreach (var g in Model.Genres)
+{
+    <div>@g.Name</div>
+}

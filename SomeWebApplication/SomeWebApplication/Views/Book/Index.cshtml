@@ -1,0 +1,91 @@
+﻿@model SomeWebApplication.Models.Book
+@using SomeWebApplication.Models.ViewModels
+@{
+    ViewBag.Title = "Book";
+}
+
+<script type="text/javascript" src="~/Scripts/QScripts/Pagination.js"></script>
+<script type="text/javascript" src="~/Scripts/QScripts/rateComment.js"></script>
+<script type="text/javascript" src="~/Scripts/QScripts/date.js"></script>
+<link href="~/Content/Styles/BookItem.css" rel="stylesheet" />
+<link href="~/Content/Styles/Just.css" rel="stylesheet" />
+
+<h2>Book</h2>
+
+<div>
+    @Html.ActionLink("Back", "Index", "Home")
+    <hr />
+
+    @{Html.RenderPartial("_PartialPageBook", Model);}
+    <section>
+        <h1>Comments</h1>
+        <div class="container">
+            <div class="row">
+                @{Html.RenderPartial("LeaveComment", new CommentViewModel { BookId = Model.Id });}
+                <ul class="commentList" id="comments-wrapper"></ul>
+            </div>
+        </div>
+    </section>
+    <div id="pagination-wrapper"></div>
+
+
+</div>
+
+
+<script type="text/javascript">
+
+    const commentRating = new CommentRating(
+        '@Url.Action("GetCommentRatingJson", "Comment")',
+        '@Url.Action("RateComment", "Comment")'
+    );
+
+    const commentPaginationObj = new Pagination({
+        qtPageBtns : 4,
+        id : @Model.Id,
+        url: '@Url.Action("GetCommentsPerPageJson", "Comment")',
+        dataWrapperId: 'comments-wrapper',
+
+        buildContentCallback: (data) => {
+                for (let comment of data) {
+                    $('#comments-wrapper').append(`
+                            <li>
+                                <div class=something>
+                                    <div class="commenterImage">
+                                        <img src="https://picsum.photos/200" />
+                                    </div>
+                                    <h5>${comment['User']['UserName']}</h5>
+                                </div>
+                                <div class="commentText">
+                                    <p>${comment['Text']}</p> <span class="date sub-text">${getDateTimeString(getDateFromDotNet(comment['TimeStamp']))}</span>
+                                    <div class="d-flex flex-row align-items-center voting-icons">
+                                        <span data-commentId=${comment['Id']}>
+                                            <i class="fa fa-sort-up hit-voting">Up</i>
+                                            <i class="fa fa-sort-down hit-voting">Down</i>
+                                        </span>
+                                        <span class="rating ml-2">${comment['SumRating']}</span>
+                                    </div>
+                                </div>
+                            </li>
+                    `);
+                }
+
+                $('.hit-voting').on('click', (e) => {
+                    let type;
+
+                    const ratingElement = e.target.closest('div').querySelector('.rating');
+                    if (e.target.classList.contains('fa-sort-up')) {
+                        type = 'blabla';
+                    }
+                    else if (e.target.classList.contains('fa-sort-down')) {
+                        type = 'bla';
+                    }
+
+                    const id = e.target.closest('span').dataset['commentid'];
+                    commentRating.rateComment(id, type, ratingElement);
+                });
+            }
+    });
+
+    commentPaginationObj.getData();
+
+</script>

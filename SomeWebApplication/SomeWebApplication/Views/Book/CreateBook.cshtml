@@ -1,0 +1,83 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "CreateBook";
+}
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#genre-list').attr('data-live-search', true);
+
+        $('#genre-list').attr('multiple', true);
+        $('#genre-list').attr('data-selected-text-format', 'count');
+
+        $('#genre-list').selectpicker({
+                width: '100%',
+                title: '- [Choose Genre(s)] -',
+                style: 'genre-picker',
+                size: 6,
+                iconBase: 'fa',
+                tickIcon: 'fa-check'
+            });
+    });
+
+
+</script>
+<h2>CreateBook</h2>
+
+@model SomeWebApplication.Models.CreateBookViewModel
+
+
+<form method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.GenreIds)
+        <div class="ccol-md-10">
+            @Html.ListBoxFor(i => Model.GenreIds, Model.Genres,
+          new { @class = "form-control", multiple = "multiple" , id="genre-list"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Authors)
+        <div class="">
+            @Html.TextBoxFor(m => m.Authors, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        <div class="">
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Annotation)
+        <div class="">
+            @Html.TextAreaFor(m => m.Annotation, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CoverFile, new { @class = "label-file" })
+        <div class="img-cover">
+            @Html.TextBoxFor(m => m.CoverFile, new { type = "file" })
+            <img id="cover-display" src="#" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.TextFile, new { @class = "label-file" })
+        <div>
+            @Html.TextBoxFor(m => m.TextFile, new { type = "file" })
+        </div>
+    </div>
+
+    <input type="submit" id="save" value="Save" />
+</form>

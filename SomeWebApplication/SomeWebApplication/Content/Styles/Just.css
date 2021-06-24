@@ -1,0 +1,9 @@
+﻿input, textarea {
+    max-width: 80%;
+    background-color: #1c1c1c;
+    color: #aaa;
+}
+
+textarea {
+    min-height: 120px;
+}

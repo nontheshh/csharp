@@ -1,0 +1,74 @@
+﻿.commentList {
+    padding: 0;
+    list-style: none;
+    background-color: #1c1c1c;
+}
+
+    .commentList li {
+        margin: 0;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border: 1px solid #000;
+        color: #aaa;
+    }
+
+
+.titleBox {
+    background-color: #fdfdfd;
+    padding: 10px;
+}
+
+body {
+    background-color: #0e0e0e;
+}
+
+
+
+
+.detailBox {
+    border: 1px solid #aaa;
+    margin: 50px;
+}
+
+
+.titleBox label {
+    color: #444;
+    margin: 0;
+    display: inline-block;
+}
+
+
+.taskDescription {
+    margin-top: 10px 0;
+}
+
+
+.commenterImage {
+    width: 50px;
+    margin-right: 5px;
+    height: 100%;
+    float: left;
+}
+
+    .commenterImage img {
+        width: 100%;
+        border-radius: 50%;
+    }
+
+.commentText p {
+    color: #aaa;
+    margin: 0;
+}
+
+.sub-text {
+    color: #333;
+    font-family: verdana;
+    font-size: 11px;
+}
+
+.something {
+    height: 50px;
+    margin-bottom: 10px;
+}

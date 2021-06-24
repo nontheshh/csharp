@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@model SomeWebApplication.Models.ApplicationUser
+@using Microsoft.AspNet.Identity;
+
+<h2>Index</h2>
+@*<link href="~/Content/Styles/BookItem.css" rel="stylesheet" />*@
+
+<img src="@Url.Action("GetAvatar", new { id = Model.Id })" alt="Alternate Text" />
+
+@if (Model.Id == User.Identity.GetUserId())
+{
+    <a href="@Url.Action("Change Avatar", "SetAvatar", "Author")">Change Avatar</a>
+}
+
+<ul>
+    @foreach (var book in Model.Books)
+    {
+        <li>
+            @{Html.RenderPartial("_PartialPageBook", book);}
+        </li>
+    }
+</ul>   

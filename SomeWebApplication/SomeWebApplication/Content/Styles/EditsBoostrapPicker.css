@@ -1,0 +1,24 @@
+﻿.genre-picker {
+    background-color: #1c1c1c;
+}
+
+.dropdown-menu {
+    background-color: #1c1c1c;
+}
+
+    .dropdown-menu > li > a {
+        color: #927daf;
+    }
+
+        .dropdown-menu > li > a:hover {
+            background-color: #0e0e0e;
+        }
+
+.bootstrap-select {
+    max-width: 400px;
+}
+
+
+/*.selected{
+        background-color:darkgrey;
+    }*/
